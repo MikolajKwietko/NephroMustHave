@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.kalkulatornefroloszki.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_calcFragment"
+            app:destination="@id/calcEGFRFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_medicineFragment"
+            app:destination="@id/medicineFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_calcABPMFragment"
+            app:destination="@id/calcABPMFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_hiponatremiaFragment"
+            app:destination="@id/hiponatremiaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calcEGFRFragment"
+        android:name="com.example.kalkulatornefroloszki.CalcEGFRFragment"
+        android:label="fragment_calc_egfr"
+        tools:layout="@layout/fragment_calc_egfr">
+    </fragment>
+    <fragment
+        android:id="@+id/medicineFragment"
+        android:name="com.example.kalkulatornefroloszki.MedicineFragment"
+        android:label="fragment_medicine"
+        tools:layout="@layout/fragment_medicine" />
+    <fragment
+        android:id="@+id/calcABPMFragment"
+        android:name="com.example.kalkulatornefroloszki.CalcABPMFragment"
+        android:label="fragment_calc_abpm"
+        tools:layout="@layout/fragment_calc_abpm" />
+    <fragment
+        android:id="@+id/hiponatremiaFragment"
+        android:name="com.example.kalkulatornefroloszki.HiponatremiaFragment"
+        android:label="fragment_hiponatremia"
+        tools:layout="@layout/fragment_hiponatremia" />
+</navigation>

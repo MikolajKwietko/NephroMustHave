@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HiponatremiaFragment"
+    android:id="@+id/hiponContainer"
+    >
+
+    <TextView
+        android:id="@+id/hiponTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/hiponatremia"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <LinearLayout
+        android:id="@+id/hiponInputsContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/hiponGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hiponTitle">
+
+
+        <LinearLayout
+            android:id="@+id/hiponWeightContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="#22000000"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hiponTitle">
+
+            <TextView
+                android:id="@+id/hiponWeightLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/podaj_mase_ciala_kg"
+                android:textColor="#555555"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/hiponWeightInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_background"
+                android:digits="0123456789.,"
+                android:ems="10"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:ignore="VisualLintTextFieldSize" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hiponNatremiaContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="#22000000"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hiponWeightContainer">
+
+            <TextView
+                android:id="@+id/hiponNatremiaLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/natremia_mmol"
+                android:textColor="#555555"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/hiponNatremiaInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_background"
+                android:digits="0123456789.,"
+                android:ems="10"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:ignore="VisualLintTextFieldSize" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/hiponCalculateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/oblicz"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/hiponInputsContainer"
+        app:layout_constraintStart_toStartOf="@+id/hiponInputsContainer"
+        app:layout_constraintTop_toBottomOf="@+id/hiponGuideline"
+        tools:ignore="VisualLintButtonSize"
+        />
+
+    <LinearLayout
+        android:id="@+id/hiponResultsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/hiponInputsContainer"
+        app:layout_constraintStart_toStartOf="@id/hiponInputsContainer"
+        app:layout_constraintTop_toBottomOf="@id/hiponCalculateButton">
+
+        <LinearLayout
+            android:id="@+id/hiponDeficiencyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="#22000000"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/hiponInputsContainer"
+            app:layout_constraintStart_toStartOf="@id/hiponInputsContainer"
+            app:layout_constraintTop_toBottomOf="@id/hiponCalculateButton">
+
+            <TextView
+                android:id="@+id/hiponDeficiencyLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Niedobór sodu:"
+                android:textColor="#555555"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/hiponDeficiencyResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="48sp"
+                android:autoSizeMinTextSize="30sp"
+                android:autoSizeStepGranularity="6sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/nan"
+                android:textColor="#CC0000"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                tools:targetApi="o" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hipon24AmountContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/hiponInputsContainer"
+            app:layout_constraintStart_toStartOf="@id/hiponInputsContainer"
+            app:layout_constraintTop_toBottomOf="@id/hiponDeficiencyContainer">
+
+            <TextView
+                android:id="@+id/hipon24AmountLabel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Ilość do podania w ciągu 24h:"
+                android:textColor="#555555"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hipon24AmountResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="48sp"
+                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeStepGranularity="6sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/nan"
+                    android:textColor="#CC0000"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
+
+                <TextView
+                    android:id="@+id/hipon24Amount10NaClResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="48sp"
+                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeStepGranularity="6sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/nan"
+                    android:textColor="#CC0000"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#770000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10% NaCl"
+                    android:textColor="#770000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hiponAdditionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="#22000000"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/hiponInputsContainer"
+            app:layout_constraintStart_toStartOf="@id/hiponInputsContainer"
+            app:layout_constraintTop_toBottomOf="@id/hipon24AmountContainer">
+
+            <TextView
+                android:id="@+id/hiponAdditionLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Dodatek 5% glukozy:"
+                android:textColor="#555555"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/hiponAdditionResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="48sp"
+                android:autoSizeMinTextSize="30sp"
+                android:autoSizeStepGranularity="6sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/nan"
+                android:textColor="#CC0000"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                tools:targetApi="o" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hiponTotalContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/hiponInputsContainer"
+            app:layout_constraintStart_toStartOf="@id/hiponInputsContainer"
+            app:layout_constraintTop_toBottomOf="@id/hiponAdditionContainer">
+
+            <TextView
+                android:id="@+id/hiponTotalLabel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Łącznie:"
+                android:textColor="#555555"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hiponTotalResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="48sp"
+                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeStepGranularity="6sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/nan"
+                    android:textColor="#CC0000"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
+
+                <TextView
+                    android:id="@+id/hiponTotalPerHourResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="48sp"
+                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeStepGranularity="6sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/nan"
+                    android:textColor="#CC0000"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="3% NaCl/24h"
+                    android:textColor="#770000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#770000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hiponGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

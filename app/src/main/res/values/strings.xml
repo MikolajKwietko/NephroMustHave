@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Kalkulator NefroLoszki</string>
+    <string name="app_version">v.0.4.1 14.06.2023 @MKB</string>
+    <string name="waga_dziecka_hint"><font size="20">Waga dziecka</font></string>
+    <string name="brak_wagi">Brak podanej wagi dziecka</string>
+    <string name="brak_leku">Brak wybranego leku</string>
+    <string name="dawka_etykieta">(%1$d razy dziennie)</string>
+    <string name="nazwa_dwukropek">%1$s:</string>
+    <string name="wynik_leki">%1$s %2$s</string>
+    <string name="oblicz">Oblicz</string>
+    <string name="leki">Leki</string>
+    <string name="nan">NaN</string>
+    <string name="podaj_mase_ciala_kg">Podaj masę ciała [w kg]:</string>
+    <string name="wybierz_lek">Wybierz lek:</string>
+    <string name="placeholder">Placeholder name</string>
+    <string name="times">razy</string>
+    <string name="dawka_leku">Dawka leku:</string>
+    <string name="kalkulator_egfr">Kalkulator eGFR</string>
+    <string name="podaj_wzrost_cm">Podaj wzrost dziecka [w cm]:</string>
+    <string name="wzrost_dziecka_hint">Wzrost dziecka</string>
+    <string name="podaj_egfr">Podaj stężenie kreatyniny [w mg/dl]:</string>
+    <string name="stezenie_kreatyniny">Stężenie kreatyniny</string>
+    <string name="oblicz_egfr">Oblicz eGFR</string>
+    <string name="egfr">eGFR:</string>
+    <string name="egfr_jednostka">[ml/min/1,73m²]</string>
+    <string name="category_image">category_image</string>
+    <string name="list_arrow_image">list_arrow_image</string>
+    <string name="grupa_lekow">Grupa leków</string>
+    <string name="expand_image">expand_image</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kalkulator_abpm">Kalkulator ABPM</string>
+    <string name="oblicz_abpm">Oblicz ABPM</string>
+    <string name="hiponatremia">Hiponatremia</string>
+    <string name="masa_ciala">Masa ciała</string>
+    <string name="natremia">Natremia</string>
+    <string name="natremia_mmol">Na w surowicy \n[w mmol]:</string>
+</resources>

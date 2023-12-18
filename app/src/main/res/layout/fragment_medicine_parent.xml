@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/medicineParentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="4dp"
+    android:background="@color/black"
+    >
+
+    <ImageView
+        android:id="@+id/expandMedicineListImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/medicineParentGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_expand_arrow"
+        app:tint="@color/white"
+        android:contentDescription="@string/expand_image" />
+
+    <TextView
+        android:id="@+id/medicineParentName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/grupa_lekow"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:maxLines="1"
+        android:fontFamily="helvetica"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/medicineParentGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/medicineParentName"
+        app:layout_constraintEnd_toEndOf="@id/medicineParentGuideline"
+        app:layout_constraintTop_toTopOf="@id/medicineParentName" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/medicineParentGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
