@@ -10,6 +10,8 @@
     <string name="oblicz">Oblicz</string>
     <string name="leki">Leki</string>
     <string name="nan">NaN</string>
+    <string name="wynik_fena">%s</string>
+    <string name="wynik_nepresol">25mg w %sml wody</string>
     <string name="podaj_mase_ciala_kg">Podaj masę ciała [w kg]:</string>
     <string name="wybierz_lek">Wybierz lek:</string>
     <string name="placeholder">Placeholder name</string>
@@ -17,6 +19,7 @@
     <string name="dawka_leku">Dawka leku:</string>
     <string name="kalkulator_egfr">Kalkulator eGFR</string>
     <string name="podaj_wzrost_cm">Podaj wzrost dziecka [w cm]:</string>
+    <string name="podaj_wage_kg">Podaj wagę dziecka [w kg]:</string>
     <string name="wzrost_dziecka_hint">Wzrost dziecka</string>
     <string name="podaj_egfr">Podaj stężenie kreatyniny [w mg/dl]:</string>
     <string name="stezenie_kreatyniny">Stężenie kreatyniny</string>

@@ -21,6 +21,12 @@
         <action
             android:id="@+id/action_homeFragment_to_hiponatremiaFragment"
             app:destination="@id/hiponatremiaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_nepresolFragment"
+            app:destination="@id/nepresolFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_fenaFragment"
+            app:destination="@id/fenaFragment" />
     </fragment>
     <fragment
         android:id="@+id/calcEGFRFragment"
@@ -43,4 +49,14 @@
         android:name="com.example.kalkulatornefroloszki.HiponatremiaFragment"
         android:label="fragment_hiponatremia"
         tools:layout="@layout/fragment_hiponatremia" />
+    <fragment
+        android:id="@+id/nepresolFragment"
+        android:name="com.example.kalkulatornefroloszki.NepresolFragment"
+        android:label="fragment_nepresol"
+        tools:layout="@layout/fragment_nepresol" />
+    <fragment
+        android:id="@+id/fenaFragment"
+        android:name="com.example.kalkulatornefroloszki.FenaFragment"
+        android:label="fragment_fena"
+        tools:layout="@layout/fragment_fena" />
 </navigation>

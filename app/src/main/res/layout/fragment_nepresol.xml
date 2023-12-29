@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NepresolFragment"
+    android:id="@+id/nepresolContainer">
+
+    <TextView
+        android:id="@+id/nepresolTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Nepresol"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nepresolWeightLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/podaj_wage_kg"
+        android:gravity="center"
+        android:textColor="#555555"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nepresolTitle"
+        />
+
+    <EditText
+        android:id="@+id/nepresolWeightInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/waga_dziecka_hint"
+        android:inputType="numberDecimal"
+        android:digits="0123456789.,"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nepresolWeightLabel"
+        android:importantForAutofill="no"
+        tools:ignore="VisualLintTextFieldSize"
+        />
+
+    <Button
+        android:id="@+id/nepresolCalculateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/oblicz"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/nepresolWeightInput"
+        app:layout_constraintStart_toStartOf="@+id/nepresolWeightInput"
+        app:layout_constraintTop_toBottomOf="@+id/nepresolWeightInput"
+        tools:ignore="VisualLintButtonSize"
+        />
+
+    <TextView
+        android:id="@+id/nepresolResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#CC0000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nepresolMidGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/nepresolMidGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

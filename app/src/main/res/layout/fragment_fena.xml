@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FenaFragment"
+    android:id="@+id/fenaContainer">
+
+
+    <TextView
+        android:id="@+id/fenaTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Frakcyjne wydalanie sodu"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/fenaSerumLabelContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fenaTitle"
+        >
+        <TextView
+            android:id="@+id/fenaSerumCreatinineLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Podaj stężenie kreatyniny w osoczu [w mg/dl]:"
+            android:gravity="center"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            />
+
+        <TextView
+            android:id="@+id/fenaSerumSodiumLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Podaj stężenie sodu w osoczu [w mEq/l]:"
+            android:gravity="center"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fenaSerumInputContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fenaSerumLabelContainer"
+        >
+
+        <EditText
+            android:id="@+id/fenaSerumCreatinineInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Scr"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.,"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:importantForAutofill="no"
+            tools:ignore="VisualLintTextFieldSize"
+            />
+
+        <EditText
+            android:id="@+id/fenaSerumSodiumInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Sna"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.,"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:importantForAutofill="no"
+            tools:ignore="VisualLintTextFieldSize"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fenaUrineLabelContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fenaSerumInputContainer"
+        >
+
+        <TextView
+            android:id="@+id/fenaUrineCreatinineLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Podaj stężenie kreatyniny w moczu [w mg/dl]:"
+            android:gravity="center"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            />
+
+        <TextView
+            android:id="@+id/fenaUrineSodiumLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Podaj stężenie sodu w moczu [w mEq/l]:"
+            android:gravity="center"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fenaUrineInputContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fenaUrineLabelContainer"
+        >
+
+        <EditText
+            android:id="@+id/fenaUrineCreatinineInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ucr"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.,"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:importantForAutofill="no"
+            tools:ignore="VisualLintTextFieldSize"
+            />
+
+        <EditText
+            android:id="@+id/fenaUrineSodiumInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Una"
+            android:inputType="numberDecimal"
+            android:digits="0123456789.,"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:importantForAutofill="no"
+            tools:ignore="VisualLintTextFieldSize"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/fenaCalculateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/oblicz"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/fenaUrineInputContainer"
+        app:layout_constraintStart_toStartOf="@+id/fenaUrineInputContainer"
+        app:layout_constraintTop_toBottomOf="@+id/fenaUrineInputContainer"
+        tools:ignore="VisualLintButtonSize"
+        />
+
+    <TextView
+        android:id="@+id/fenaResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#CC0000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fenaMidGuideline"
+        android:visibility="gone"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fenaMidGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

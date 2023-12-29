@@ -16,7 +16,14 @@ class HomeFragment : Fragment(), CategoryListListener {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val calcList = arrayListOf(Card("eGFR", R.drawable.egfr), Card("Leki", R.drawable.leki), Card("ABPM", R.drawable.abpm), Card("Hiponatremia", R.drawable.nacl))
+    private val calcList = arrayListOf(
+        Card("eGFR", R.drawable.egfr),
+        Card("Leki", R.drawable.leki),
+        Card("ABPM", R.drawable.abpm),
+        Card("Hiponatremia", R.drawable.nacl),
+        Card("Nepresol", R.drawable.leki),
+        Card("FENa", R.drawable.nacl)
+    )
 
     private var columnCount = 2
 
@@ -67,6 +74,16 @@ class HomeFragment : Fragment(), CategoryListListener {
                 val actionHomeFragmentToHiponatremiaFragment =
                     HomeFragmentDirections.actionHomeFragmentToHiponatremiaFragment()
                 findNavController().navigate(actionHomeFragmentToHiponatremiaFragment)
+            }
+            4 -> {
+                val actionHomeFragmentToNepresolFragment =
+                    HomeFragmentDirections.actionHomeFragmentToNepresolFragment()
+                findNavController().navigate(actionHomeFragmentToNepresolFragment)
+            }
+            5 -> {
+                val actionHomeFragmentToFenaFragment =
+                    HomeFragmentDirections.actionHomeFragmentToFenaFragment()
+                findNavController().navigate(actionHomeFragmentToFenaFragment)
             }
         }
     }
