@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeFragment_to_fenaFragment"
             app:destination="@id/fenaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_calculateFragment"
+            app:destination="@id/calculateFragment" />
     </fragment>
     <fragment
         android:id="@+id/calcEGFRFragment"
@@ -59,4 +62,9 @@
         android:name="com.example.kalkulatornefroloszki.FenaFragment"
         android:label="fragment_fena"
         tools:layout="@layout/fragment_fena" />
+    <fragment
+        android:id="@+id/calculateFragment"
+        android:name="com.example.kalkulatornefroloszki.CalculateFragment"
+        android:label="fragment_calculate"
+        tools:layout="@layout/fragment_calculate" />
 </navigation>

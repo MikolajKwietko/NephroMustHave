@@ -1,16 +1,12 @@
 package com.example.kalkulatornefroloszki
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kalkulatornefroloszki.data.Medicines
@@ -94,7 +90,7 @@ class MedicineFragment : Fragment(), MedicineListListener {
         // Inflate the layout for this fragment
         binding = FragmentMedicineBinding.inflate(inflater, container, false)
 
-        setupUI(binding.medicineContainer)
+        Utils.setupUI(this, binding.medicineContainer)
 
         hideResultViews()
         setupSearchView()
@@ -178,6 +174,62 @@ class MedicineFragment : Fragment(), MedicineListListener {
         }
     }
 
+    private fun calculateDose(medicine: Medicine){
+        if (medicine.name.isEmpty()) {
+            hideResultViews()
+            showMessage(getString(R.string.brak_leku))
+        } else {
+            handleExtraDosing(medicine)
+            if (binding.medicineWeightInput.text.isEmpty()){
+                hideResultViews(true)
+                showMessage(getString(R.string.brak_leku))
+            } else {
+                handleMedicineLabel(medicine)
+                handleMainDose(medicine)
+                if (medicine.extraDosing) handleExtraDose(medicine)
+
+                showResultViews(medicine)
+            }
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.parseColor("#770000"))
+            .show()
+    }
+
+    private fun handleExtraDosing(medicine: Medicine) {
+        if (!medicine.extraDosing){
+            binding.medicineResultExtraLabel.visibility = View.GONE
+            binding.medicineResultExtraValue.visibility = View.GONE
+            binding.medicineResultExtraDose.visibility = View.GONE
+        } else binding.medicineResultExtraLabel.text = getString(R.string.nazwa_dwukropek, medicine.extraName)
+    }
+
+    private fun handleMedicineLabel(medicine: Medicine) {
+        binding.medicineResultLabel.text = if (medicine.label.isNotEmpty())
+            getString(R.string.nazwa_dwukropek, medicine.label)
+        else
+            getString(R.string.dawka_leku)
+    }
+
+    private fun handleMainDose(medicine: Medicine) {
+        val temp = (Utils.inputToDouble(binding.medicineWeightInput) * medicine.dose)/medicine.timesADay
+        val result = DecimalFormat("0.##").format(temp)
+        binding.medicineResultValue.text =
+            getString(R.string.wynik_leki, result, medicine.unit).replace(".",",").substringBefore("/", "mg")
+    }
+
+    private fun handleExtraDose(medicine: Medicine) {
+        val extraTemp = (Utils.inputToDouble(binding.medicineWeightInput) * medicine.extraDose) / medicine.extraTimesADay
+        val extraResult = DecimalFormat("0.##").format(extraTemp)
+        binding.medicineResultExtraValue.text =
+            getString(R.string.wynik_leki, extraResult, medicine.unit).replace(".", ",").substringBefore("/", "mg")
+        binding.medicineResultExtraLabel.visibility = View.VISIBLE
+        binding.medicineResultExtraValue.visibility = View.VISIBLE
+    }
+
     private fun hideResultViews(nameVisibility: Boolean = false) {
         if (!nameVisibility) binding.medicineNameLabel.visibility = View.GONE
         binding.medicineResultLabelContainer.visibility = View.GONE
@@ -185,94 +237,22 @@ class MedicineFragment : Fragment(), MedicineListListener {
         binding.medicineResultDoseContainer.visibility = View.GONE
     }
 
-    private fun calculateDose(medicine: Medicine){
-        if (medicine.name == "") {
-            hideResultViews()
-            Snackbar.make(binding.root, getString(R.string.brak_leku), Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(Color.parseColor("#770000"))
-                .show()
-        } else {
-            if (!medicine.extraDosing){
-                binding.medicineResultExtraLabel.visibility = View.GONE
-                binding.medicineResultExtraValue.visibility = View.GONE
-                binding.medicineResultExtraDose.visibility = View.GONE
-            } else binding.medicineResultExtraLabel.text = getString(R.string.nazwa_dwukropek, medicine.extraName)
+    private fun showResultViews(medicine: Medicine) {
+        binding.medicineResultLabelContainer.visibility = View.VISIBLE
+        binding.medicineResultValueContainer.visibility = View.VISIBLE
 
-            if (binding.medicineWeightInput.text.isEmpty()){
-                hideResultViews(true)
-                Snackbar.make(binding.root, getString(R.string.brak_wagi), Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(Color.parseColor("#770000"))
-                    .show()
-            } else {
-                if (medicine.label.isNotEmpty()){
-                    binding.medicineResultLabel.text = getString(R.string.nazwa_dwukropek, medicine.label)
-                } else binding.medicineResultLabel.text = getString(R.string.dawka_leku)
-                val temp = (binding.medicineWeightInput.text.toString().replace(",",".").toDouble() * medicine.dose)/medicine.timesADay
-                val result = DecimalFormat("0.##").format(temp)
-                binding.medicineResultValue.text =
-                    getString(R.string.wynik_leki, result, medicine.unit).replace(".",",").substringBefore("/", "mg")
+        if (medicine.timesADay > 1) {
+            binding.medicineResultDose.text = getString(R.string.dawka_etykieta, medicine.timesADay)
+            binding.medicineResultDoseContainer.visibility = View.VISIBLE
+            binding.medicineResultDose.visibility = View.VISIBLE
 
-                if (medicine.extraDosing){
-                    val extraTemp = (binding.medicineWeightInput.text.toString().replace(",",".").toDouble() * medicine.extraDose)/medicine.extraTimesADay
-                    val extraResult = DecimalFormat("0.##").format(extraTemp)
-                    binding.medicineResultExtraValue.text =
-                        getString(R.string.wynik_leki, extraResult, medicine.unit).replace(".",",").substringBefore("/", "mg")
-                    binding.medicineResultExtraLabel.visibility = View.VISIBLE
-                    binding.medicineResultExtraValue.visibility = View.VISIBLE
-                }
-
-                binding.medicineResultLabelContainer.visibility = View.VISIBLE
-                binding.medicineResultValueContainer.visibility = View.VISIBLE
-
-                if (medicine.timesADay > 1) {
-                    binding.medicineResultDose.text = getString(R.string.dawka_etykieta, medicine.timesADay)
-                    if (medicine.extraDosing) {
-                        if (medicine.extraTimesADay > 1) {
-                            binding.medicineResultExtraDose.text = getString(R.string.dawka_etykieta, medicine.extraTimesADay)
-                            binding.medicineResultExtraDose.visibility = View.VISIBLE
-                        } else binding.medicineResultExtraDose.visibility = View.INVISIBLE
-                    } else binding.medicineResultExtraDose.visibility = View.GONE
-                    binding.medicineResultDoseContainer.visibility = View.VISIBLE
-                    binding.medicineResultDose.visibility = View.VISIBLE
-                } else binding.medicineResultDoseContainer.visibility = View.GONE
-
-            }
-        }
-    }
-
-    private fun hideKeyboard() {
-        view?.let { activity?.hideKeyboard(it) }
-    }
-
-    private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setupUI(view: View) {
-
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (view !is EditText) {
-            view.setOnTouchListener { _, _ ->
-                hideKeyboard()
-                false
-            }
-        } else {
-            view.setOnFocusChangeListener { currentView, _ ->
-                if (!currentView.hasFocus()){
-                    hideKeyboard()
-                }
-            }
-        }
-
-        //If a layout container, iterate over children and seed recursion.
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                val innerView = view.getChildAt(i)
-                setupUI(innerView)
-            }
-        }
+            if (medicine.extraDosing) {
+                if (medicine.extraTimesADay > 1) {
+                    binding.medicineResultExtraDose.text = getString(R.string.dawka_etykieta, medicine.extraTimesADay)
+                    binding.medicineResultExtraDose.visibility = View.VISIBLE
+                } else binding.medicineResultExtraDose.visibility = View.INVISIBLE
+            } else binding.medicineResultExtraDose.visibility = View.GONE
+        } else binding.medicineResultDoseContainer.visibility = View.GONE
     }
 
     override fun onChildClick(medicine: Medicine) {

@@ -7,31 +7,44 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.kalkulatornefroloszki.data.Category
-import com.example.kalkulatornefroloszki.data.Category.Card
+import com.example.kalkulatornefroloszki.data.Card
+import com.example.kalkulatornefroloszki.data.Card.Category
 import com.example.kalkulatornefroloszki.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), CategoryListListener {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val calcList = arrayListOf(
-        Card("eGFR", R.drawable.egfr),
-        Card("Leki", R.drawable.leki),
-        Card("ABPM", R.drawable.abpm),
-        Card("Hiponatremia", R.drawable.nacl),
-        Card("Nepresol", R.drawable.leki),
-        Card("FENa", R.drawable.nacl)
-    )
-
     private var columnCount = 2
 
+    private val categories = listOf(
+        Category("eGFR", R.drawable.egfr),
+        Category("Leki", R.drawable.leki),
+        Category("ABPM", R.drawable.abpm),
+        Category("Hiponatremia", R.drawable.nacl),
+        Category("Nepresol", R.drawable.leki),
+        Category("Frakcyjne wydalanie sodu", R.drawable.nacl),
+        Category("Nefrologia", R.drawable.logo, arrayListOf(
+                Category("eGFR", R.drawable.egfr),
+                Category("Hiponatremia", R.drawable.nacl),
+                Category("Frakcyjne wydalanie sodu", R.drawable.nacl)
+            )
+        )
+    )
+
+    private val categoryStack = ArrayList<Pair<String, List<Category>>>()
+
+    private val categoryAdapter by lazy {
+        MyCategoryRecyclerViewAdapter(Card.ITEMS, this@HomeFragment)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Category.ITEMS.clear()
-        for (i in calcList.indices) {
-            Category.ITEMS.add(calcList[i])
+        Card.ITEMS.clear()
+        for (i in categories.indices) {
+            Card.ITEMS.add(categories[i])
         }
     }
 
@@ -42,49 +55,58 @@ class HomeFragment : Fragment(), CategoryListListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         // Set the adapter
-            with(binding.categoryList) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyCategoryRecyclerViewAdapter(Category.ITEMS, this@HomeFragment)
+        with(binding.categoryList) {
+            layoutManager = when {
+                columnCount <= 1 -> LinearLayoutManager(context)
+                else -> GridLayoutManager(context, columnCount)
             }
+            adapter = categoryAdapter
+        }
+
+        val backPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (categoryStack.size > 1) {
+                    categoryStack.removeLast()
+                    categoryAdapter.setCategory(categoryStack.last().second)
+                    binding.calcHomeTitle.text = categoryStack.last().first
+                } else if (categoryStack.size == 1) {
+                    categoryStack.removeLast()
+                    categoryAdapter.setCategory(categories)
+                    binding.calcHomeTitle.text = getString(R.string.app_name)
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
 
         return binding.root
     }
 
     override fun onItemClick(position: Int) {
-        when(position) {
-            0 -> {
-                val actionHomeFragmentToCalcFragment =
-                    HomeFragmentDirections.actionHomeFragmentToCalcFragment()
-                findNavController().navigate(actionHomeFragmentToCalcFragment)
-            }
-            1 -> {
-                val actionHomeFragmentToMedicineFragment =
-                    HomeFragmentDirections.actionHomeFragmentToMedicineFragment()
-                findNavController().navigate(actionHomeFragmentToMedicineFragment)
-            }
-            2 -> {
-                val actionHomeFragmentToCalcABPMFragment =
-                    HomeFragmentDirections.actionHomeFragmentToCalcABPMFragment()
-                findNavController().navigate(actionHomeFragmentToCalcABPMFragment)
-            }
-            3 -> {
-                val actionHomeFragmentToHiponatremiaFragment =
-                    HomeFragmentDirections.actionHomeFragmentToHiponatremiaFragment()
-                findNavController().navigate(actionHomeFragmentToHiponatremiaFragment)
-            }
-            4 -> {
-                val actionHomeFragmentToNepresolFragment =
-                    HomeFragmentDirections.actionHomeFragmentToNepresolFragment()
-                findNavController().navigate(actionHomeFragmentToNepresolFragment)
-            }
-            5 -> {
-                val actionHomeFragmentToFenaFragment =
-                    HomeFragmentDirections.actionHomeFragmentToFenaFragment()
-                findNavController().navigate(actionHomeFragmentToFenaFragment)
+        if (categoryStack.isNotEmpty() && categoryStack.last().second[position].subcategories.isNotEmpty()){
+            updateSubcategory(categoryStack.last().second[position])
+        } else if (categoryStack.isEmpty() && categories[position].subcategories.isNotEmpty()){
+            updateSubcategory(categories[position])
+        } else {
+            when (position) {
+                0 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToCalcFragment())
+                /*1 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToMedicineFragment())*/
+                1 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToCalculateFragment())
+                2 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToCalcABPMFragment())
+                3 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToHiponatremiaFragment())
+                4 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToNepresolFragment())
+                5 -> navigateToFragment(HomeFragmentDirections.actionHomeFragmentToFenaFragment())
             }
         }
+    }
+
+    private fun navigateToFragment(action: NavDirections) {
+        findNavController().navigate(action)
+    }
+
+    private fun updateSubcategory(category: Category) {
+        categoryAdapter.setCategory(category.subcategories)
+        categoryStack.add(Pair(category.name, category.subcategories))
+        binding.calcHomeTitle.text = category.name
     }
 }

@@ -29,7 +29,7 @@ class HiponatremiaFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHiponatremiaBinding.inflate(inflater, container, false)
 
-        setupUI(binding.hiponContainer)
+        Utils.setupUI(this, binding.root)
 
         return binding.root
     }
@@ -41,16 +41,12 @@ class HiponatremiaFragment : Fragment() {
     }
 
     private fun calculate() {
-        if (binding.hiponWeightInput.text.isEmpty()){
-            Snackbar.make(binding.root, "Brak podanej masy ciała", Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(Color.parseColor("#770000"))
-                .show()
-        } else if (binding.hiponNatremiaInput.text.isEmpty()){
-            Snackbar.make(binding.root, "Brak podanej natremii", Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(Color.parseColor("#770000"))
-                .show()
-        } else {
-            val deficiency = (140 - binding.hiponNatremiaInput.text.toString().replace(",", ".").toDouble()) * binding.hiponWeightInput.text.toString().replace(",", ".").toDouble() * 0.6
+        val inputs = listOf(
+            Utils.InputField(binding.hiponWeightInput, "Brak podanej masy ciała"),
+            Utils.InputField(binding.hiponNatremiaInput, "Brak podanej natremii")
+        )
+        if (Utils.checkInputsIfEmpty(*inputs.toTypedArray())) {
+            val deficiency = (140 - Utils.inputToDouble(binding.hiponNatremiaInput)) * Utils.inputToDouble(binding.hiponWeightInput) * 0.6
             var result = DecimalFormat("0.#").format(deficiency)
             binding.hiponDeficiencyResult.text = getString(R.string.wynik_leki, result, "mmol").replace(".",",")
 
@@ -75,41 +71,6 @@ class HiponatremiaFragment : Fragment() {
             binding.hiponTotalPerHourResult.text = getString(R.string.wynik_leki, result, "ml/h").replace(".",",")
 
             binding.hiponResultsContainer.visibility = View.VISIBLE
-
-//            eGFR = (0.413 * binding.egfrHeightInput.text.toString().replace(",", ".").toDouble()) / binding.egfrCreatinineInput.text.toString().replace(",", ".").toDouble()
-//            eGFR = (eGFR * 100.0).roundToInt() / 100.0
-//
-//            binding.resultEGFR.text = eGFR.toString().replace(".", ",")
-//            switchResultVisibilityOn()
-        }
-    }
-
-    private fun hideKeyboard() {
-        view?.let { activity?.hideKeyboard(it) }
-    }
-
-    private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setupUI(view: View) {
-
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (view !is EditText) {
-            view.setOnTouchListener { _, _ ->
-                hideKeyboard()
-                false
-            }
-        }
-
-        //If a layout container, iterate over children and seed recursion.
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                val innerView = view.getChildAt(i)
-                setupUI(innerView)
-            }
         }
     }
 }

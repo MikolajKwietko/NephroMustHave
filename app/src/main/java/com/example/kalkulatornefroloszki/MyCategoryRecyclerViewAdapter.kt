@@ -1,16 +1,17 @@
 package com.example.kalkulatornefroloszki
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.kalkulatornefroloszki.data.Category.Card
+import com.example.kalkulatornefroloszki.data.Card.Category
 import com.example.kalkulatornefroloszki.databinding.FragmentCategoryBinding
 
 class MyCategoryRecyclerViewAdapter(
-    private val values: List<Card>,
+    private var values: List<Category>,
     private val eventListener: CategoryListListener
 ) : RecyclerView.Adapter<MyCategoryRecyclerViewAdapter.ViewHolder>() {
 
@@ -36,6 +37,12 @@ class MyCategoryRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int = values.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setCategory(category: List<Category>){
+        values = category
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: FragmentCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         val image: ImageView = binding.categoryImage
